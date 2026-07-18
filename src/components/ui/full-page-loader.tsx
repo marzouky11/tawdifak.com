@@ -1,21 +1,21 @@
 import { Loader2 } from 'lucide-react';
 
 /**
- * A full-screen loading indicator that is always centered exactly in the
- * middle of the viewport (horizontally and vertically), regardless of the
- * page's scroll position or surrounding layout.
+ * An in-page loading indicator for the main content area.
  *
- * It combines `fixed inset-0` (covers the real browser viewport, on top of
- * the header/footer) with `min-h-screen` on an inner wrapper (guarantees a
- * large, in-flow empty area even in contexts where a fixed overlay might be
- * constrained, e.g. inside a Suspense boundary during the very first paint).
- * This keeps the loading screen consistently big everywhere it's used
- * (login, signup, profile, edit profile, ...).
+ * Unlike a full-viewport overlay, this renders in the normal document flow
+ * inside <main>, so the header and bottom navigation (rendered by AppLayout
+ * outside of `children`) stay visible and untouched. Only the content area
+ * collapses into a big, centered spinner while the page/data is loading.
+ *
+ * `min-h-[70vh]` keeps the placeholder tall/roomy on every page (login,
+ * signup, profile, edit profile, ...) so the spinner sits centered in a
+ * generous empty area instead of near the top of the page.
  */
 export function FullPageLoader() {
   return (
-    <div className="fixed inset-0 z-50 bg-background flex items-center justify-center min-h-screen">
-      <Loader2 className="h-12 w-12 animate-spin text-primary" />
+    <div className="flex min-h-[70vh] w-full items-center justify-center">
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
     </div>
   );
 }
