@@ -8,6 +8,11 @@ import {
   Instagram,
   Facebook,
   ShieldCheck,
+  Briefcase,
+  Plane,
+  Landmark,
+  Users,
+  UserCheck,
 } from 'lucide-react';
 import { MobilePageHeader } from '@/components/layout/mobile-page-header';
 import { DesktopPageHeader } from '@/components/layout/desktop-page-header';
@@ -64,15 +69,18 @@ function ContactLink({ href, external, className }: { href: string; external: bo
 
 export default async function AdvertisePage() {
   const stats = await getCachedGlobalStats().catch(() => null);
-  const totalPosts = stats ? stats.jobs + stats.competitions + stats.immigration + stats.workers : 0;
-  // Figures are only shown once they are meaningful, so the page never advertises tiny numbers.
+  // Live counters from Firestore (stats/general), refreshed at most once an hour.
+  // Shown only once the site has a meaningful amount of content.
+  const opportunities = stats ? stats.jobs + stats.immigration + stats.competitions : 0;
   const statItems =
-    stats && totalPosts >= 100
+    stats && opportunities >= 100
       ? [
-          { label: 'إعلان منشور', value: totalPosts },
-          { label: 'عرض عمل', value: stats.jobs },
-          { label: 'مستخدم مسجّل', value: stats.users },
-        ].filter(item => item.value > 0)
+          { label: 'عروض العمل', value: stats.jobs, icon: Briefcase },
+          { label: 'فرص الهجرة', value: stats.immigration, icon: Plane },
+          { label: 'المباريات العمومية', value: stats.competitions, icon: Landmark },
+          { label: 'باحثون عن عمل', value: stats.workers, icon: Users },
+          { label: 'مستخدمون', value: stats.users, icon: UserCheck },
+        ]
       : [];
 
   const isWhatsApp = Boolean(WHATSAPP_NUMBER);
@@ -107,16 +115,23 @@ export default async function AdvertisePage() {
           />
         </section>
 
-        {/* Stats (only when meaningful) */}
+        {/* Stats */}
         {statItems.length > 0 && (
-          <section
-            className="grid divide-x divide-x-reverse rounded-2xl border bg-card"
-            style={{ gridTemplateColumns: `repeat(${statItems.length}, minmax(0, 1fr))` }}
-          >
-            {statItems.map(item => (
-              <div key={item.label} className="py-5 text-center">
-                <div className="text-2xl md:text-4xl font-bold text-primary">{item.value.toLocaleString('fr-MA')}</div>
-                <div className="mt-1 text-xs md:text-sm text-muted-foreground">{item.label}</div>
+          <section className="grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-4">
+            {statItems.map((item, index) => (
+              <div
+                key={item.label}
+                className={`flex flex-col items-center justify-center gap-2 rounded-2xl border bg-card px-3 py-5 text-center ${
+                  index === statItems.length - 1 ? 'col-span-2 md:col-span-1' : ''
+                }`}
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <item.icon className="h-5 w-5" />
+                </div>
+                <div className="text-2xl md:text-3xl font-bold text-primary tabular-nums">
+                  {item.value.toLocaleString('en-US').replace(/,/g, '\u00A0')}
+                </div>
+                <div className="text-xs md:text-sm text-muted-foreground">{item.label}</div>
               </div>
             ))}
           </section>
