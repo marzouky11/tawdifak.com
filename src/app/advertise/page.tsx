@@ -10,6 +10,7 @@ import {
   ShieldCheck,
 } from 'lucide-react';
 import { MobilePageHeader } from '@/components/layout/mobile-page-header';
+import { DesktopPageHeader } from '@/components/layout/desktop-page-header';
 import { getCachedGlobalStats } from '@/lib/data';
 
 export const revalidate = 3600;
@@ -84,14 +85,15 @@ export default async function AdvertisePage() {
       <MobilePageHeader title="أعلن معنا">
         <Megaphone className="h-5 w-5 text-primary" />
       </MobilePageHeader>
+      <DesktopPageHeader
+        icon={Megaphone}
+        title="أعلن معنا"
+        description="اعرض خدماتك وعروضك على موقع توظيفك وصفحاته على مواقع التواصل."
+      />
 
-      <div className="container mx-auto max-w-5xl px-4 pt-6 md:pt-14 pb-16 space-y-14 md:space-y-20">
+      <div className="container mx-auto max-w-5xl px-4 pt-6 md:pt-8 pb-16 space-y-14 md:space-y-20">
         {/* Hero */}
         <section className="text-center space-y-5">
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
-            <Megaphone className="h-4 w-4" />
-            أعلن معنا
-          </span>
           <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
             وصّل إعلانك إلى <span className="text-primary whitespace-nowrap">جمهور توظيفك</span>
           </h1>
