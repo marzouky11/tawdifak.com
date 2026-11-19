@@ -8,12 +8,9 @@ import {
   Instagram,
   Facebook,
   ShieldCheck,
-  Briefcase,
-  Plane,
-  Landmark,
-  Users,
-  UserCheck,
 } from 'lucide-react';
+import { unstable_cache } from 'next/cache';
+import { getAdminFirestoreSafe } from '@/lib/firebase-admin';
 import { MobilePageHeader } from '@/components/layout/mobile-page-header';
 import { DesktopPageHeader } from '@/components/layout/desktop-page-header';
 import { getCachedGlobalStats } from '@/lib/data';
@@ -67,19 +64,37 @@ function ContactLink({ href, external, className }: { href: string; external: bo
   );
 }
 
+// Real document counts (not the stats counters), computed on the server with
+// Firestore count() and cached for 6 hours: visitors never trigger a database read.
+// Falls back to the stats/general counters if the Admin SDK isn't configured.
+const getAudienceCounts = unstable_cache(
+  async () => {
+    const db = getAdminFirestoreSafe();
+    if (db) {
+      const [workers, users] = await Promise.all([
+        db.collection('workers').count().get(),
+        db.collection('users').count().get(),
+      ]);
+      return { workers: workers.data().count, users: users.data().count };
+    }
+    const stats = await getCachedGlobalStats();
+    return { workers: stats.workers, users: stats.users };
+  },
+  ['advertise-audience-counts'],
+  { revalidate: 21600 }
+);
+
+function formatNumber(value: number) {
+  return value.toLocaleString('en-US').replace(/,/g, '\u00A0');
+}
+
 export default async function AdvertisePage() {
-  const stats = await getCachedGlobalStats().catch(() => null);
-  // Live counters from Firestore (stats/general), refreshed at most once an hour.
-  // Shown only once the site has a meaningful amount of content.
-  const opportunities = stats ? stats.jobs + stats.immigration + stats.competitions : 0;
+  const counts = await getAudienceCounts().catch(() => null);
   const statItems =
-    stats && opportunities >= 100
+    counts && counts.workers > 0 && counts.users > 0
       ? [
-          { label: 'عروض العمل', value: stats.jobs, icon: Briefcase },
-          { label: 'فرص الهجرة', value: stats.immigration, icon: Plane },
-          { label: 'المباريات العمومية', value: stats.competitions, icon: Landmark },
-          { label: 'باحثون عن عمل', value: stats.workers, icon: Users },
-          { label: 'مستخدمون', value: stats.users, icon: UserCheck },
+          { label: 'باحث عن عمل', value: counts.workers },
+          { label: 'مستخدم مسجّل', value: counts.users },
         ]
       : [];
 
@@ -117,21 +132,11 @@ export default async function AdvertisePage() {
 
         {/* Stats */}
         {statItems.length > 0 && (
-          <section className="grid grid-cols-2 gap-3 md:grid-cols-5 md:gap-4">
-            {statItems.map((item, index) => (
-              <div
-                key={item.label}
-                className={`flex flex-col items-center justify-center gap-2 rounded-2xl border bg-card px-3 py-5 text-center ${
-                  index === statItems.length - 1 ? 'col-span-2 md:col-span-1' : ''
-                }`}
-              >
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <item.icon className="h-5 w-5" />
-                </div>
-                <div className="text-2xl md:text-3xl font-bold text-primary tabular-nums">
-                  {item.value.toLocaleString('en-US').replace(/,/g, '\u00A0')}
-                </div>
-                <div className="text-xs md:text-sm text-muted-foreground">{item.label}</div>
+          <section className="mx-auto grid max-w-xl grid-cols-2 divide-x divide-x-reverse rounded-2xl border bg-card">
+            {statItems.map(item => (
+              <div key={item.label} className="py-5 text-center">
+                <div className="text-2xl md:text-4xl font-bold text-primary tabular-nums">{formatNumber(item.value)}</div>
+                <div className="mt-1 text-xs md:text-sm text-muted-foreground">{item.label}</div>
               </div>
             ))}
           </section>

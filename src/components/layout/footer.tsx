@@ -239,15 +239,26 @@ const DesktopFooter = () => {
           <p className="text-sm text-gray-500 dark:text-gray-400">
             &copy; توظيفك. جميع الحقوق محفوظة {new Date().getFullYear()}
           </p>
-          <a
-            href="https://www.instagram.com/tawdifak_com?stkn=MWdxajIwY2N4bDAyOA=="
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center h-9 w-9 rounded-full border border-gray-200 dark:border-secondary-foreground/20 text-gray-400 dark:text-gray-500 hover:text-primary hover:border-primary/30 transition-colors"
-            aria-label="إنستغرام"
-          >
-            <Instagram className="h-4 w-4" />
-          </a>
+          <div className="flex items-center gap-2">
+            <a
+              href="https://www.instagram.com/tawdifak_com?stkn=MWdxajIwY2N4bDAyOA=="
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center h-9 w-9 rounded-full border border-gray-200 dark:border-secondary-foreground/20 text-gray-400 dark:text-gray-500 hover:text-primary hover:border-primary/30 transition-colors"
+              aria-label="إنستغرام"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61595971857986"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center h-9 w-9 rounded-full border border-gray-200 dark:border-secondary-foreground/20 text-gray-400 dark:text-gray-500 hover:text-primary hover:border-primary/30 transition-colors"
+              aria-label="فيسبوك"
+            >
+              <Facebook className="h-4 w-4" />
+            </a>
+          </div>
         </div>
       </div>
     </footer>
