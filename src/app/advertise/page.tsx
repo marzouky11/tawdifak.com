@@ -91,7 +91,7 @@ export default async function AdvertisePage() {
         description="اعرض خدماتك وعروضك على موقع توظيفك وصفحاته على مواقع التواصل."
       />
 
-      <div className="container mx-auto max-w-5xl px-4 pt-6 md:pt-8 pb-16 space-y-14 md:space-y-20">
+      <div className="container mx-auto max-w-5xl px-4 pt-4 md:pt-2 pb-16 space-y-12 md:space-y-16">
         {/* Hero */}
         <section className="text-center space-y-5">
           <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">

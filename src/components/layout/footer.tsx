@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import {
   Instagram,
+  Facebook,
   Briefcase,
   Users,
   PlusCircle,
@@ -90,6 +91,18 @@ const MobileFooter = () => {
               <div className="flex items-center gap-3">
                 <Instagram className="h-5 w-5 text-primary" />
                 <span className="font-medium text-sm">تابعنا على إنستغرام</span>
+              </div>
+              <ArrowLeft className="h-4 w-4 text-muted-foreground" />
+            </a>
+            <a
+              href="https://www.facebook.com/profile.php?id=61595971857986"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-3 rounded-lg hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                <Facebook className="h-5 w-5 text-primary" />
+                <span className="font-medium text-sm">تابعنا على فيسبوك</span>
               </div>
               <ArrowLeft className="h-4 w-4 text-muted-foreground" />
             </a>
@@ -186,6 +199,13 @@ const DesktopFooter = () => {
                 <FooterColumnLink
                   href="https://www.instagram.com/tawdifak_com?stkn=MWdxajIwY2N4bDAyOA=="
                   label="تابعنا على إنستغرام"
+                  external
+                />
+              </li>
+              <li>
+                <FooterColumnLink
+                  href="https://www.facebook.com/profile.php?id=61595971857986"
+                  label="تابعنا على فيسبوك"
                   external
                 />
               </li>

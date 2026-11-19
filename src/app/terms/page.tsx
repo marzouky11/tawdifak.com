@@ -104,7 +104,7 @@ export default function TermsOfServicePage() {
 
             <h3 className="text-xl font-bold mt-6 mb-3 text-green-600">10. الاتصال بنا</h3>
             <p>
-                إذا كانت لديك أي أسئلة حول شروط الاستخدام هذه، يرجى التواصل معنا عبر البريد الإلكتروني الموضح في صفحة <Link href="/contact">اتصل بنا</Link>.
+                إذا كانت لديك أي أسئلة حول شروط الاستخدام هذه، يرجى التواصل معنا عبر صفحة <Link href="/contact">اتصل بنا</Link>.
             </p>
           </CardContent>
         </Card>
