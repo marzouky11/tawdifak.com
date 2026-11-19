@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 // ─── Contact & social links (edit here only) ────────────────────────────────
 // WhatsApp number in international format WITHOUT "+" or spaces, e.g. '2126XXXXXXXX'.
 // While it is empty, the buttons send visitors to the contact page instead.
-const WHATSAPP_NUMBER = '';
+const WHATSAPP_NUMBER = '212764130114';
 const WHATSAPP_MESSAGE = 'السلام عليكم، أريد الإعلان مع توظيفك. هل يمكنني معرفة تفاصيل العروض؟';
 
 const SOCIAL_LINKS = [
