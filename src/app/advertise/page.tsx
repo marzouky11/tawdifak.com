@@ -4,111 +4,40 @@ import {
   Clapperboard,
   Smartphone,
   LayoutPanelTop,
-  Target,
-  Users,
-  ShieldCheck,
-  BadgeCheck,
   MessageCircle,
   Instagram,
   Facebook,
-  XCircle,
+  ShieldCheck,
 } from 'lucide-react';
 import { MobilePageHeader } from '@/components/layout/mobile-page-header';
-import { DesktopPageHeader } from '@/components/layout/desktop-page-header';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { getCachedGlobalStats } from '@/lib/data';
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: 'أعلن معنا - وصّل إعلانك لجمهور توظيفك',
+  title: 'أعلن معنا - توظيفك',
   description:
-    'أعلن مع منصة توظيفك: ريلز احترافية، منشورات وستوري على صفحاتنا، وبانرات ومقالات تعريفية في الموقع، لجمهور مهتم بالشغل والمباريات وفرص الهجرة القانونية.',
+    'أعلن مع منصة توظيفك عبر ريلز احترافية، منشورات وستوري على صفحاتنا، أو بانر ومقال في الموقع، لجمهور مهتم بعروض العمل والمباريات وفرص الهجرة.',
   alternates: { canonical: '/advertise' },
 };
 
 // ─── Contact & social links (edit here only) ────────────────────────────────
-// Put the WhatsApp number in international format WITHOUT "+" or spaces,
-// e.g. '2126XXXXXXXX'. While it is empty the WhatsApp button is hidden and
-// visitors are sent to the contact page instead.
+// WhatsApp number in international format WITHOUT "+" or spaces, e.g. '2126XXXXXXXX'.
+// While it is empty, the buttons send visitors to the contact page instead.
 const WHATSAPP_NUMBER = '';
-const WHATSAPP_MESSAGE = 'السلام عليكم، بغيت نعلن مع توظيفك. ممكن تفاصيل العروض؟';
+const WHATSAPP_MESSAGE = 'السلام عليكم، أريد الإعلان مع توظيفك. هل يمكنني معرفة تفاصيل العروض؟';
 
 const SOCIAL_LINKS = [
-  {
-    name: 'إنستغرام',
-    handle: '@tawdifak_com',
-    href: 'https://www.instagram.com/tawdifak_com',
-    icon: Instagram,
-    className: 'bg-gradient-to-tr from-[#f58529] via-[#dd2a7b] to-[#8134af] text-white',
-  },
-  {
-    name: 'فيسبوك',
-    handle: 'توظيفك | Tawdifak',
-    href: 'https://www.facebook.com/profile.php?id=61595971857986',
-    icon: Facebook,
-    className: 'bg-[#1877F2] text-white',
-  },
-  {
-    name: 'تيك توك',
-    handle: '@tawdifak',
-    href: 'https://www.tiktok.com/@tawdifak',
-    icon: TikTokIcon,
-    className: 'bg-black text-white',
-  },
+  { name: 'إنستغرام', href: 'https://www.instagram.com/tawdifak_com', icon: Instagram },
+  { name: 'فيسبوك', href: 'https://www.facebook.com/profile.php?id=61595971857986', icon: Facebook },
+  { name: 'تيك توك', href: 'https://www.tiktok.com/@tawdifak', icon: TikTokIcon },
 ];
 // ────────────────────────────────────────────────────────────────────────────
 
 const OFFERS = [
-  {
-    icon: Clapperboard,
-    title: 'ريل احترافي على صفحاتنا',
-    description:
-      'فيديو قصير بأسلوب توظيفك المميز يعرّف بشركتك أو عرضك، يُنشر على إنستغرام وفيسبوك وتيك توك.',
-  },
-  {
-    icon: Smartphone,
-    title: 'منشور أو ستوري',
-    description:
-      'منشور أو ستوري مصمم بعناية على صفحاتنا للإعلان عن توظيف، تكوين، أو خدمة تهم جمهورنا.',
-  },
-  {
-    icon: LayoutPanelTop,
-    title: 'بانر أو مقال في الموقع',
-    description:
-      'مساحة إعلانية داخل موقع tawdifak.com، أو مقال تعريفي بمؤسستك يبقى منشوراً ويظهر في محركات البحث.',
-  },
-];
-
-const REASONS = [
-  {
-    icon: Target,
-    title: 'جمهور مستهدف',
-    description: 'زوارنا يبحثون فعلاً عن الشغل، المباريات العمومية وفرص الهجرة القانونية.',
-  },
-  {
-    icon: Users,
-    title: 'حضور على عدة منصات',
-    description: 'إعلانك يصل عبر الموقع وصفحاتنا على إنستغرام وفيسبوك وتيك توك.',
-  },
-  {
-    icon: BadgeCheck,
-    title: 'محتوى احترافي',
-    description: 'نصمم الإعلان بأسلوب واضح وجذاب يناسب جمهورنا المغربي.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'منصة موثوقة',
-    description: 'نراجع كل إعلان قبل نشره، مما يمنح إعلانك مصداقية أكبر.',
-  },
-];
-
-const AUDIENCE = ['الشركات والمقاولات', 'مكاتب التوظيف المرخّصة', 'مراكز ومعاهد التكوين', 'المدارس الخاصة', 'الخدمات المهنية'];
-
-const NOT_ACCEPTED = [
-  'إعلانات تطلب من الباحث عن عمل دفع المال مقابل الوظيفة',
-  'عروض هجرة غير قانونية أو غير موثقة',
-  'إعلانات مضللة أو لا يمكن التحقق منها',
+  { icon: Clapperboard, title: 'ريل احترافي', description: 'فيديو قصير ينشر على إنستغرام وفيسبوك وتيك توك.' },
+  { icon: Smartphone, title: 'منشور أو ستوري', description: 'إعلان مصمم بعناية على صفحاتنا.' },
+  { icon: LayoutPanelTop, title: 'بانر أو مقال', description: 'مساحة إعلانية أو مقال تعريفي داخل الموقع.' },
 ];
 
 function TikTokIcon({ className }: { className?: string }) {
@@ -119,189 +48,132 @@ function TikTokIcon({ className }: { className?: string }) {
   );
 }
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-xl md:text-2xl font-bold text-green-600 mb-4">{children}</h2>;
+function ContactLink({ href, external, className }: { href: string; external: boolean; className: string }) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      className={`inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-base font-semibold shadow-sm transition active:scale-95 ${className}`}
+    >
+      <MessageCircle className="h-5 w-5" />
+      {external ? 'تواصل عبر واتساب' : 'تواصل معنا'}
+    </a>
+  );
 }
 
 export default async function AdvertisePage() {
   const stats = await getCachedGlobalStats().catch(() => null);
   const totalPosts = stats ? stats.jobs + stats.competitions + stats.immigration + stats.workers : 0;
   // Figures are only shown once they are meaningful, so the page never advertises tiny numbers.
-  const showStats = totalPosts >= 100;
+  const statItems =
+    stats && totalPosts >= 100
+      ? [
+          { label: 'إعلان منشور', value: totalPosts },
+          { label: 'عرض عمل', value: stats.jobs },
+          { label: 'مستخدم مسجّل', value: stats.users },
+        ].filter(item => item.value > 0)
+      : [];
 
-  const whatsappHref = WHATSAPP_NUMBER
+  const isWhatsApp = Boolean(WHATSAPP_NUMBER);
+  const contactHref = isWhatsApp
     ? `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
-    : null;
+    : '/contact';
 
   return (
     <>
       <MobilePageHeader title="أعلن معنا">
         <Megaphone className="h-5 w-5 text-primary" />
       </MobilePageHeader>
-      <DesktopPageHeader
-        icon={Megaphone}
-        title="أعلن معنا"
-        description="وصّل إعلانك لآلاف الباحثين عن عمل والمهتمين بالمباريات وفرص الهجرة في المغرب."
-      />
 
-      <div className="container mx-auto max-w-5xl px-4 pb-12 space-y-6 md:space-y-8">
-        {/* Intro */}
-        <Card>
-          <CardHeader>
-            <h1 className="text-2xl font-semibold leading-none tracking-tight flex items-center gap-2 text-red-600 md:text-3xl">
-              <Megaphone className="h-6 w-6" />
-              أعلن مع توظيفك
-            </h1>
-          </CardHeader>
-          <CardContent className="pt-0 md:pt-2 space-y-4">
-            <p className="text-base md:text-lg leading-relaxed text-muted-foreground">
-              توظيفك منصة مغربية متخصصة في عروض الشغل، المباريات العمومية وفرص الهجرة القانونية. إذا كانت
-              لديك شركة أو مركز تكوين أو خدمة تهم الباحثين عن عمل، نساعدك على الوصول إلى جمهور مهتم فعلاً بما تقدمه.
-            </p>
-
-            {showStats && stats && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 pt-2">
-                {[
-                  { label: 'إعلان منشور', value: totalPosts },
-                  { label: 'عرض شغل', value: stats.jobs },
-                  { label: 'مباراة عمومية', value: stats.competitions },
-                  { label: 'مستخدم مسجّل', value: stats.users },
-                ]
-                  .filter(item => item.value > 0)
-                  .map(item => (
-                    <div key={item.label} className="rounded-xl border bg-primary/5 p-4 text-center">
-                      <div className="text-2xl md:text-3xl font-bold text-primary">
-                        {item.value.toLocaleString('fr-MA')}
-                      </div>
-                      <div className="text-sm text-muted-foreground mt-1">{item.label}</div>
-                    </div>
-                  ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
-
-        {/* Offers */}
-        <section>
-          <SectionTitle>ماذا نقدم لك</SectionTitle>
-          <div className="grid gap-4 md:grid-cols-3">
-            {OFFERS.map(offer => (
-              <Card key={offer.title} className="h-full">
-                <CardContent className="p-5 md:p-6 flex flex-col gap-3 h-full">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                    <offer.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="text-lg font-bold">{offer.title}</h3>
-                  <p className="text-sm md:text-base leading-relaxed text-muted-foreground">{offer.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+      <div className="container mx-auto max-w-5xl px-4 pt-6 md:pt-14 pb-16 space-y-14 md:space-y-20">
+        {/* Hero */}
+        <section className="text-center space-y-5">
+          <span className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
+            <Megaphone className="h-4 w-4" />
+            أعلن معنا
+          </span>
+          <h1 className="text-3xl md:text-5xl font-bold leading-tight tracking-tight">
+            وصّل إعلانك إلى <span className="text-primary whitespace-nowrap">جمهور توظيفك</span>
+          </h1>
+          <p className="mx-auto max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed">
+            جمهور يبحث يومياً عن عروض العمل والمباريات وفرص الهجرة.
+          </p>
+          <ContactLink
+            href={contactHref}
+            external={isWhatsApp}
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+          />
         </section>
 
-        {/* Why us */}
-        <section>
-          <SectionTitle>لماذا تعلن معنا</SectionTitle>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {REASONS.map(reason => (
-              <Card key={reason.title}>
-                <CardContent className="p-5 flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-green-600/10 text-green-600">
-                    <reason.icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-bold mb-1">{reason.title}</h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">{reason.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
+        {/* Stats (only when meaningful) */}
+        {statItems.length > 0 && (
+          <section
+            className="grid divide-x divide-x-reverse rounded-2xl border bg-card"
+            style={{ gridTemplateColumns: `repeat(${statItems.length}, minmax(0, 1fr))` }}
+          >
+            {statItems.map(item => (
+              <div key={item.label} className="py-5 text-center">
+                <div className="text-2xl md:text-4xl font-bold text-primary">{item.value.toLocaleString('fr-MA')}</div>
+                <div className="mt-1 text-xs md:text-sm text-muted-foreground">{item.label}</div>
+              </div>
+            ))}
+          </section>
+        )}
+
+        {/* Offers */}
+        <section className="space-y-6">
+          <h2 className="text-center text-2xl md:text-3xl font-bold">ماذا نقدم لك</h2>
+          <div className="grid gap-4 md:grid-cols-3">
+            {OFFERS.map(offer => (
+              <div
+                key={offer.title}
+                className="flex items-center gap-4 rounded-2xl border bg-card p-5 transition hover:border-primary/40 hover:shadow-md md:flex-col md:items-start md:p-6"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <offer.icon className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold">{offer.title}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{offer.description}</p>
+                </div>
+              </div>
             ))}
           </div>
         </section>
 
         {/* Social pages */}
-        <section>
-          <SectionTitle>صفحاتنا على مواقع التواصل</SectionTitle>
-          <div className="grid gap-3 sm:grid-cols-3">
+        <section className="space-y-6 text-center">
+          <h2 className="text-2xl md:text-3xl font-bold">تابع صفحاتنا</h2>
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
             {SOCIAL_LINKS.map(social => (
               <a
                 key={social.name}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`flex items-center gap-3 rounded-xl p-4 shadow-sm transition-transform hover:scale-[1.02] active:scale-95 ${social.className}`}
+                className="flex items-center gap-2 rounded-full border bg-card px-4 py-2.5 text-sm font-medium transition hover:border-primary hover:text-primary md:px-6 md:py-3 md:text-base"
               >
-                <social.icon className="h-7 w-7 shrink-0" />
-                <div className="min-w-0">
-                  <div className="font-bold">{social.name}</div>
-                  <div className="text-sm opacity-90 truncate" dir="auto">
-                    {social.handle}
-                  </div>
-                </div>
+                <social.icon className="h-5 w-5" />
+                <span>{social.name}</span>
               </a>
             ))}
           </div>
         </section>
 
-        {/* Audience + rules */}
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card>
-            <CardContent className="p-5 md:p-6">
-              <SectionTitle>من يمكنه الإعلان معنا</SectionTitle>
-              <ul className="space-y-2">
-                {AUDIENCE.map(item => (
-                  <li key={item} className="flex items-center gap-2">
-                    <BadgeCheck className="h-5 w-5 shrink-0 text-green-600" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-5 md:p-6">
-              <SectionTitle>إعلانات لا نقبلها</SectionTitle>
-              <ul className="space-y-2">
-                {NOT_ACCEPTED.map(item => (
-                  <li key={item} className="flex items-start gap-2">
-                    <XCircle className="h-5 w-5 shrink-0 text-red-600 mt-0.5" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-              <p className="text-sm text-muted-foreground mt-4">كل إعلان تتم مراجعته قبل النشر.</p>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* CTA */}
-        <Card className="border-primary/30 bg-primary/5">
-          <CardContent className="p-6 md:p-8 text-center space-y-4">
-            <h2 className="text-xl md:text-2xl font-bold">هل تريد الإعلان معنا؟</h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              تواصل معنا وأخبرنا بما تريد الإعلان عنه، وسنرسل لك العرض المناسب وسعره.
-            </p>
-            {whatsappHref ? (
-              <a
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-[#25D366] px-8 py-3 text-lg font-bold text-white shadow-sm transition-transform hover:bg-[#25D366]/90 active:scale-95"
-              >
-                <MessageCircle className="h-6 w-6" />
-                تواصل معنا عبر واتساب
-              </a>
-            ) : (
-              <a
-                href="/contact"
-                className="inline-flex w-full sm:w-auto items-center justify-center gap-2 rounded-lg bg-primary px-8 py-3 text-lg font-bold text-primary-foreground shadow-sm transition-transform hover:bg-primary/90 active:scale-95"
-              >
-                <MessageCircle className="h-6 w-6" />
-                تواصل معنا
-              </a>
-            )}
-          </CardContent>
-        </Card>
+        {/* Final CTA */}
+        <section className="rounded-3xl bg-primary px-6 py-10 text-center text-primary-foreground md:py-14">
+          <h2 className="text-2xl md:text-3xl font-bold">جاهز للإعلان معنا؟</h2>
+          <p className="mx-auto mt-3 max-w-md opacity-90">أخبرنا بما تريد الإعلان عنه، وسنرسل لك العرض المناسب.</p>
+          <ContactLink
+            href={contactHref}
+            external={isWhatsApp}
+            className="mt-6 bg-white text-primary hover:bg-white/90"
+          />
+          <p className="mx-auto mt-6 flex max-w-md items-start justify-center gap-1.5 text-xs opacity-80">
+            <ShieldCheck className="h-4 w-4 shrink-0" />
+            نراجع كل إعلان قبل نشره، ولا نقبل الإعلانات التي تطلب المال من الباحثين عن عمل.
+          </p>
+        </section>
       </div>
     </>
   );
