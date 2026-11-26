@@ -17,7 +17,6 @@ import {
   Plane,
   MessageSquare,
   MessageSquarePlus,
-  Megaphone,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
@@ -33,7 +32,6 @@ const importantLinks = [
 const platformLinks = [
   { label: 'من نحن', href: '/about', icon: Info },
   { label: 'اتصل بنا', href: '/contact', icon: Mail },
-  { label: 'أعلن معنا', href: '/advertise', icon: Megaphone },
   { label: 'سياسة الخصوصية', href: '/privacy', icon: Shield },
   { label: 'شروط الاستخدام', href: '/terms', icon: FileText },
   { label: 'آراء المستخدمين', href: '/testimonials', icon: MessageSquare },
@@ -220,9 +218,6 @@ const DesktopFooter = () => {
               </li>
               <li>
                 <FooterColumnLink href="/contact" label="اتصل بنا" />
-              </li>
-              <li>
-                <FooterColumnLink href="/advertise" label="أعلن معنا" />
               </li>
               <li>
                 <FooterColumnLink href="/privacy" label="سياسة الخصوصية" />

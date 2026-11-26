@@ -11,7 +11,6 @@ const staticPages = [
   { url: '/immigration', priority: 0.9, changeFrequency: 'daily' },
   { url: '/articles', priority: 0.7, changeFrequency: 'weekly' },
   { url: '/about', priority: 0.5, changeFrequency: 'yearly' },
-  { url: '/advertise', priority: 0.5, changeFrequency: 'monthly' },
   { url: '/contact', priority: 0.5, changeFrequency: 'yearly' },
   { url: '/privacy', priority: 0.3, changeFrequency: 'yearly' },
   { url: '/terms', priority: 0.3, changeFrequency: 'yearly' },
